@@ -16,7 +16,7 @@ assist the training of person-specific classifiers.
 
 Use Replay-Attack dataset as the example. Go to REPLAY-ATTACK folder, and then:
 
-1. Load feats and labels.
+1. Load Feats and Labels.
 
    We need load all features for Replay-Attack dataset. Run
    ```bash
