@@ -14,13 +14,17 @@ assist the training of person-specific classifiers.
 
 ### Train model
 
-Use Replay-Attack dataset as the example. 
+Use Replay-Attack dataset as the example. Go to REPLAY-ATTACK folder, and then:
 
 1. Load feats and labels for Replay-Attack dataset:
 
    ```bash
-   >> load('Feats_Replay-Attack_tr_fall_soriginal.mat')
-   >> load('Labels_Replay-Attack_tr_fall_soriginal.mat')
+   >> load('Feats_Replay-Attack_tr_fall_soriginal.mat')  % load train features
+   >> load('Labels_Replay-Attack_tr_fall_soriginal.mat') % load train labels
+   >> load('Feats_Replay-Attack_dev_fall_soriginal.mat') % load development features
+   >> load('Labels_Replay-Attack_dev_fall_soriginal.mat') % load development labels
+   >> load('Feats_Replay-Attack_te_fall_soriginal.mat') % load test features
+   >> load('Labels_Replay-Attack_te_fall_soriginal.mat') % load test labels
    ```
 
 2. 
