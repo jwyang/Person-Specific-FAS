@@ -73,7 +73,7 @@ Use Replay-Attack dataset as the example. Go to REPLAY-ATTACK folder, and then:
 	Finally, you may want to evaluate the performance. Go to Test_Models folder, find runall_ps.m and runall_gen.m and run them.
  
 ### Citation
-If you find our code is useful in your researches, please consider citing:
+If you find our paper or code is useful in your researches, please consider citing:
 
     @article{yang2015person,
       title={Person-specific face antispoofing with subject domain adaptation},
