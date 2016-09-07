@@ -14,4 +14,15 @@ assist the training of person-specific classifiers.
 
 ### Train model
 
+Use Replay-Attack dataset as the example. 
+
+1. Load feats and labels for Replay-Attack dataset:
+
+   ```bash
+   $ load('Feats_Replay-Attack_tr_fall_soriginal.mat')
+   $ load('Labels_Replay-Attack_tr_fall_soriginal.mat')
+   ```
+
+2. 
+ 
 ## Keynotes
