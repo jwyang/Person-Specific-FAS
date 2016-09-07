@@ -18,21 +18,37 @@ Use Replay-Attack dataset as the example. Go to REPLAY-ATTACK folder, and then:
 
 1. Load Feats and Labels.
 
-   We need load all features for Replay-Attack dataset. Run
+   We need load all features and labels for Replay-Attack dataset. Run
    ```bash
-   >> load('Feats_Replay-Attack_tr_fall_soriginal.mat')  % load train set features
-   >> load('Labels_Replay-Attack_tr_fall_soriginal.mat') % load train set labels
-   >> load('Feats_Replay-Attack_dev_fall_soriginal.mat') % load development set features
-   >> load('Labels_Replay-Attack_dev_fall_soriginal.mat') % load development set labels
-   >> load('Feats_Replay-Attack_te_fall_soriginal.mat') % load test set features
-   >> load('Labels_Replay-Attack_te_fall_soriginal.mat') % load test set labels
-   >> load('Feats_Replay-Attack_en_fall_soriginal.mat') % load enrollment set features
-   >> load('Labels_Replay-Attack_en_fall_soriginal.mat') % load enrollment set labels
+   load('Feats_Replay-Attack_tr_fall_soriginal.mat')  % load train set features
+   load('Labels_Replay-Attack_tr_fall_soriginal.mat') % load train set labels
+   load('Feats_Replay-Attack_dev_fall_soriginal.mat') % load development set features
+   load('Labels_Replay-Attack_dev_fall_soriginal.mat') % load development set labels
+   load('Feats_Replay-Attack_te_fall_soriginal.mat') % load test set features
+   load('Labels_Replay-Attack_te_fall_soriginal.mat') % load test set labels
+   load('Feats_Replay-Attack_en_fall_soriginal.mat') % load enrollment set features
+   load('Labels_Replay-Attack_en_fall_soriginal.mat') % load enrollment set labels
    ```
 
 2. Estimate Transformation.
 
-    Go to folder Estimate_Transformationn_for_Expe, fun runall.m. Then run:
+    Go to folder Estimate_Transformationn_for_Expe, fund runall.m:
+    ```bash
+    Feat_Types = [1 3];
+    BLabels = {'ContN' 'AdvN'};
+
+    for t = 1:length(Feat_Types)
+      for b = 1:length(BLabels)
+         EstimateTransformation_Enroll_Iterative(Feats_enroll_SL, Labels_train_SL, Labels_devel_SL, Labels_test_SL, Labels_enroll_SL, BLabels{b}, Feat_Types(t), 'CS');
+         EstimateTransformation_Enroll_Iterative(Feats_enroll_SL, Labels_train_SL, Labels_devel_SL, Labels_test_SL, Labels_enroll_SL, BLabels{b}, Feat_Types(t), 'OLS');
+         EstimateTransformation_Enroll_Iterative(Feats_enroll_SL, Labels_train_SL, Labels_devel_SL, Labels_test_SL, Labels_enroll_SL, BLabels{b}, Feat_Types(t), 'PLS');
+         EstimateTransformation_Enroll_PCA(Feats_enroll_SL, Labels_train_SL, Labels_devel_SL, Labels_test_SL, Labels_enroll_SL, Feat_Types(t), BLabels{b}, 'PCA');  
+         % EstimateTransformation_Enroll_PCA_withSubNum(Feats_enroll_SL, Labels_train_SL, Labels_devel_SL, Labels_test_SL, Labels_enroll_SL, Feat_Types(t), BLabels{b}, 'PCA');
+      end
+    end	
+	```
+
+	In this file, we provided all methods to estimate the transformations, including CS, OLS, PLS as stated in the paper. We also provided a PCA-based transformation estimation. To get the transformation, implement runall.m
 	
 	
 3. Domain Adaptation.
