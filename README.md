@@ -38,25 +38,38 @@ Use Replay-Attack dataset as the example. Go to REPLAY-ATTACK folder, and then:
     BLabels = {'ContN' 'AdvN'};
 
     for t = 1:length(Feat_Types)
-      for b = 1:length(BLabels)
-         EstimateTransformation_Enroll_Iterative(Feats_enroll_SL, Labels_train_SL, Labels_devel_SL, Labels_test_SL, Labels_enroll_SL, BLabels{b}, Feat_Types(t), 'CS');
-         EstimateTransformation_Enroll_Iterative(Feats_enroll_SL, Labels_train_SL, Labels_devel_SL, Labels_test_SL, Labels_enroll_SL, BLabels{b}, Feat_Types(t), 'OLS');
-         EstimateTransformation_Enroll_Iterative(Feats_enroll_SL, Labels_train_SL, Labels_devel_SL, Labels_test_SL, Labels_enroll_SL, BLabels{b}, Feat_Types(t), 'PLS');
-         EstimateTransformation_Enroll_PCA(Feats_enroll_SL, Labels_train_SL, Labels_devel_SL, Labels_test_SL, Labels_enroll_SL, Feat_Types(t), BLabels{b}, 'PCA');  
-         % EstimateTransformation_Enroll_PCA_withSubNum(Feats_enroll_SL, Labels_train_SL, Labels_devel_SL, Labels_test_SL, Labels_enroll_SL, Feat_Types(t), BLabels{b}, 'PCA');
-      end
+        for b = 1:length(BLabels)
+            EstimateTransformation_Enroll_Iterative(Feats_enroll_SL, Labels_train_SL, Labels_devel_SL, Labels_test_SL, Labels_enroll_SL, BLabels{b}, Feat_Types(t), 'CS');
+            EstimateTransformation_Enroll_Iterative(Feats_enroll_SL, Labels_train_SL, Labels_devel_SL, Labels_test_SL, Labels_enroll_SL, BLabels{b}, Feat_Types(t), 'OLS');
+            EstimateTransformation_Enroll_Iterative(Feats_enroll_SL, Labels_train_SL, Labels_devel_SL, Labels_test_SL, Labels_enroll_SL, BLabels{b}, Feat_Types(t), 'PLS');
+            EstimateTransformation_Enroll_PCA(Feats_enroll_SL, Labels_train_SL, Labels_devel_SL, Labels_test_SL, Labels_enroll_SL, Feat_Types(t), BLabels{b}, 'PCA');  
+            % EstimateTransformation_Enroll_PCA_withSubNum(Feats_enroll_SL, Labels_train_SL, Labels_devel_SL, Labels_test_SL, Labels_enroll_SL, Feat_Types(t), BLabels{b}, 'PCA');
+        end
     end	
 	```
 
-	In this file, we provided all methods to estimate the transformations, including CS, OLS, PLS as stated in the paper. We also provided a PCA-based transformation estimation. To get the transformation, implement runall.m
-	
+	In this file, we provided all methods to estimate the transformations, including CS, OLS, PLS as stated in the paper. We also provided a PCA-based transformation estimation. To get the transformation, comment the line as you need. Once finished, you will obtain a mat file with prefix "transform_".
 	
 3. Domain Adaptation.
+    After get the estimated transformation, we can perform domain adaptation between subjects. Go to Domain_Adaptation folder, and find runall.m:
+	```bash
+	Feat_Types = [1 3];
+    Methods = {'CS' 'OLS' 'PLS' 'PCA'};
 
-
+    for t = 1:2
+        for m = 1:4 % length(Methods)
+            TargetDA_AllQualities(Feats_train_SL, Labels_train_SL, Feats_devel_SL, Labels_devel_SL, Feats_test_SL, Labels_test_SL, Feats_enroll_SL, Labels_enroll_SL, Feat_Types(t), Methods{m})        
+        end
+    end
+	```
+    Modify the variable *Methods* accordingly to do domain adaptation for different methods. Afterward, you will find mat files with prefix "SynthFeatures_".
+	
 4. Train Model.
 
+    Congratulate to see you here. You are almost set! Go inside Train_Models folder. You can train generic face anti-spoofing model using runall_gen.m, while person-specific face anti-spoofing model using runall_ps.m. Meanwhile, you can also use runall.m to train models with the number of subjects used for training.
+	
 5. Test Model
 	
+	Finally, you may want to evaluate the performance. Go to Test_Models folder, find runall_ps.m and runall_gen.m and run them.
  
 ## Keynotes
